@@ -71,10 +71,11 @@ func readAll(completion: (_ tokens: [String]) -> Void){
     }
 }
 
-func writeValue(token: String){
+
+func writeValue(Query: String){
     fetchData { (mysql) in
     let theStatement = MySQLStmt(mysql)
-    _ = theStatement.prepare(statement: "INSERT INTO Devices(token) values(\"\(token)\")")
+    _ = theStatement.prepare(statement: Query)
     _ = theStatement.execute()
     print("yazıldı.")
     }

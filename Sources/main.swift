@@ -3,7 +3,7 @@ import PerfectHTTP
 import PerfectHTTPServer
 import Foundation
 import PerfectNotifications
-
+import PerfectRepeater
 // your app id. we use this as the configuration name, but they do not have to match
 
 let notificationsAppId = SECRET_NOTIFICATIONS_APP_ID
@@ -57,5 +57,14 @@ do {
 } catch {
     fatalError("\(error)") // fatal error launching one of the servers
 }
+
+
+let cc = {
+    () -> Bool in
+    writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
+    return true
+}
+
+Repeater.exec(timer: 5.0, callback: cc)
 
 
