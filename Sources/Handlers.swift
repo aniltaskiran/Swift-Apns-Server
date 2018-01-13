@@ -55,8 +55,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         } catch {
             print("error")
         }
-        
-        writeValue(token: newDevice.token)
+        writeValue(Query: "INSERT INTO Devices(token) values(\"\(newDevice.token)\"")
         
         
         // Setting the response content type explicitly to application/json
