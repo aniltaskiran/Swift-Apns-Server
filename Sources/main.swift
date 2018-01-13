@@ -6,6 +6,40 @@ import PerfectNotifications
 import PerfectRepeater
 // your app id. we use this as the configuration name, but they do not have to match
 
+
+
+
+
+var opt = 1
+
+let c = {
+    () -> Bool in
+    print("XXXXXX")
+    writeValue(Query: "INSERT INTO Devices(token) values(\"merhaba\"))")
+    return true
+}
+
+let cc = {
+    () -> Bool in
+    writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
+    print("Hello, world! (\(opt))")
+    if opt < 10 {
+        opt += 1
+        return true
+    } else {
+        print("cc exiting.")
+        return false
+    }
+}
+
+Repeater.exec(timer: 3.0, callback: c)
+Repeater.exec(timer: 2.0, callback: cc)
+
+var shouldKeepRunning = true        // change this `false` to stop the application from running
+let theRL = RunLoop.current         // Need a reference to the current run loop
+while shouldKeepRunning && theRL.run(mode: .defaultRunLoopMode, before: .distantFuture) {  }
+
+
 let notificationsAppId = SECRET_NOTIFICATIONS_APP_ID
 let apnsKeyIdentifier = SECRET_APNS_KEY_IDENTIFIER
 let apnsTeamIdentifier = SECRET_TEAM_IDENTIFIER
@@ -51,40 +85,10 @@ let confData = [
     ]
 ]
 
-do {
-    // Launch the servers based on the configuration data.
-    try HTTPServer.launch(configurationData: confData)
-} catch {
-    fatalError("\(error)") // fatal error launching one of the servers
-}
-
-
-var opt = 1
-
-let c = {
-    () -> Bool in
-    print("XXXXXX")
-    writeValue(Query: "INSERT INTO Devices(token) values(\"merhaba\"))")
-    return true
-}
-
-let cc = {
-    () -> Bool in
-    writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
-    print("Hello, world! (\(opt))")
-    if opt < 10 {
-        opt += 1
-        return true
-    } else {
-        print("cc exiting.")
-        return false
-    }
-}
-
-Repeater.exec(timer: 3.0, callback: c)
-Repeater.exec(timer: 2.0, callback: cc)
-
-var shouldKeepRunning = true        // change this `false` to stop the application from running
-let theRL = RunLoop.current         // Need a reference to the current run loop
-while shouldKeepRunning && theRL.run(mode: .defaultRunLoopMode, before: .distantFuture) {  }
+//do {
+//    // Launch the servers based on the configuration data.
+//    try HTTPServer.launch(configurationData: confData)
+//} catch {
+//    fatalError("\(error)") // fatal error launching one of the servers
+//}
 
