@@ -1,0 +1,9 @@
+.build
+xcuserdata
+*.xcodeproj
+Package.pins
+Package.resolved
+Config_Secret
+.DS_Store
+keys
+Sources/SecretConstants.swift
