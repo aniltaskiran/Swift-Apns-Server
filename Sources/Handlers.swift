@@ -46,6 +46,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         request, response in
         
         print("POST api/v1/postDevice/json geldi")
+        writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
         print(request.postBodyString!)
         let newDevice = DeviceJsonObject(mToken: "")
         
@@ -55,7 +56,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         } catch {
             print("error")
         }
-        writeValue(Query: "INSERT INTO Devices(token) values(\"\(newDevice.token)\"")
+        writeValue(Query: "INSERT INTO Devices(token) values(\"assasa\")")
         
         
         // Setting the response content type explicitly to application/json
