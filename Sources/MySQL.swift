@@ -34,12 +34,12 @@ private func fetchData(completion: (_ MySQL: MySQL) -> Void) {
         mysql.close() //This defer block makes sure we terminate the connection once finished, regardless of the result
     }
     
-    //Choose the database to work with
-    guard mysql.selectDatabase(named: testDB) else {
-        print("seçilemedi")
-        return
-    }
-    print("seçildi")
+//    //Choose the database to work with
+//    guard mysql.selectDatabase(named: testDB) else {
+//        print("seçilemedi")
+//        return
+//    }
+//    print("seçildi")
     completion(mysql)
 }
 
