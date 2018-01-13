@@ -15,13 +15,13 @@ var opt = 1
 let c = {
     () -> Bool in
     print("XXXXXX")
-    writeValue(Query: "INSERT INTO Devices(token) values(\"merhaba\"))")
+    writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
+    writeValue(Query: "INSERT INTO Devices(token) values(\"merhaba\")")
     return true
 }
 
 let cc = {
     () -> Bool in
-    writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
     print("Hello, world! (\(opt))")
     if opt < 10 {
         opt += 1
