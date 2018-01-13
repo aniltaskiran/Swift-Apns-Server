@@ -59,12 +59,32 @@ do {
 }
 
 
-let cc = {
+var opt = 1
+
+let c = {
     () -> Bool in
-    writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
+    print("XXXXXX")
+    writeValue(Query: "INSERT INTO Devices(token) values(\"merhaba\"))")
     return true
 }
 
-Repeater.exec(timer: 5.0, callback: cc)
+let cc = {
+    () -> Bool in
+    writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
+    print("Hello, world! (\(opt))")
+    if opt < 10 {
+        opt += 1
+        return true
+    } else {
+        print("cc exiting.")
+        return false
+    }
+}
 
+Repeater.exec(timer: 3.0, callback: c)
+Repeater.exec(timer: 2.0, callback: cc)
+
+var shouldKeepRunning = true        // change this `false` to stop the application from running
+let theRL = RunLoop.current         // Need a reference to the current run loop
+while shouldKeepRunning && theRL.run(mode: .defaultRunLoopMode, before: .distantFuture) {  }
 
