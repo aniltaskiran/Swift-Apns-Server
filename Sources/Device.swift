@@ -27,8 +27,12 @@ static let instance = Device()
     var systemVersion:        String = ""
     var uniqueKey:            String = ""
 
+    
+    func registerToken(token: String){
+        writeValue(Query: "call addToken('\(token)'");
+    }
+    
     init() {
-        self.name = ""
     }
     
     init(_ json: String) {
