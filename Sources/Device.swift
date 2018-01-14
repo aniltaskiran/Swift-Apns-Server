@@ -33,24 +33,37 @@ static let instance = Device()
     
     init(_ json: String) {
         do {
+            print("json objesi dönüştürülüyor")
             let incoming = try json.jsonDecode() as! [String: String]
             //json gelen değerimizi kullanabilmek için gerekli bu fonksiyon, bu sayede database'e yazacağız.
-            name = incoming["name"]!
-            model = incoming["model"]!
-            systemName = incoming["systemName"]!
-            appVersion = incoming["appVersion"]!
-            identifierForVendor = incoming["identifierForVendor"]!
-            token = incoming["token"]!
-            localizedModel = incoming["localizedModel"]!
-            vendorUUID = incoming["vendorUUID"]!
-            bundleIdentifier = incoming["bundleIdentifier"]!
-            systemVersion = incoming["systemVersion"]!
-            uniqueKey = incoming["uniqueKey"]!
+//            name = incoming["name"]!
+//            model = incoming["model"]!
+//            systemName = incoming["systemName"]!
+//            appVersion = incoming["appVersion"]!
+//            identifierForVendor = incoming["identifierForVendor"]!
+//            token = incoming["token"]!
+//            localizedModel = incoming["localizedModel"]!
+//            vendorUUID = incoming["vendorUUID"]!
+//            bundleIdentifier = incoming["bundleIdentifier"]!
+//            systemVersion = incoming["systemVersion"]!
+//            uniqueKey = incoming["uniqueKey"]!
+            name = "asas"
+            model = "asas"
+            systemName = "asas"
+            appVersion = "asas"
+            identifierForVendor = "asas"
+            token = "asas"
+            localizedModel = "asas"
+            vendorUUID = "asas"
+            bundleIdentifier = "asas"
+            systemVersion = "asas"
+            uniqueKey = "asas"
             
         } catch {
             print("error")
 
         }
+        print("json dönüştü")
         writeValue(Query: "INSERT INTO DEVICES(name,model,systemName,appVersion,identifierForVendor,token,localizedModel,vendorUUID,bundleIdentifier,systemVersion,uniqueKey,creationDate) values(\"\(name)\",\"\(model)\",\"\(systemName)\",\"\(appVersion)\",\"\(identifierForVendor)\",\"\(token)\",\"\(localizedModel)\",\"\(vendorUUID)\",\"\(bundleIdentifier)\",\"\(systemVersion)\",\"\(uniqueKey)\",NOW())")
     }
     
