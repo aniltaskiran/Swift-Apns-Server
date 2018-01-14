@@ -1,5 +1,5 @@
 //
-//  people.swift
+//  Device.swift
 //  CreateYourOwnApns
 //
 //  Created by Anıl T. on 12.01.2018.
@@ -7,58 +7,84 @@
 import PerfectHTTP
 import PerfectNotifications
 
-var data : [DeviceJsonObject] = []
 
 public class Device {
-    
+
+//    var jsonObjects : [DeviceJsonObject] = []
+
 static let instance = Device()
     
-    // Populating with a mock data object
     
-    // A simple JSON encoding function for listing data members.
-    // Ordinarily in an API list directive, cursor commands would be included.
-    public func list() -> String {
-        return toString()
+    var name:                 String = ""
+    var model:                String = ""
+    var systemName:           String = ""
+    var appVersion:           String = ""
+    var identifierForVendor:  String = ""
+    var token:                String = ""
+    var localizedModel:       String = ""
+    var vendorUUID:           String = ""
+    var bundleIdentifier:     String = ""
+    var systemVersion:        String = ""
+    var uniqueKey:            String = ""
+
+    init() {
+        self.name = ""
     }
     
-    // Accepts raw JSON string, to be converted to JSON and consumed.
-    public func add(_ json: String) -> String {
+    init(_ json: String) {
         do {
             let incoming = try json.jsonDecode() as! [String: String]
-            let new = DeviceJsonObject(mToken: incoming["token"] ?? "")
-
-            data.append(new)
+            //json gelen değerimizi kullanabilmek için gerekli bu fonksiyon, bu sayede database'e yazacağız.
+            name = incoming["name"]!
+            model = incoming["model"]!
+            systemName = incoming["systemName"]!
+            appVersion = incoming["appVersion"]!
+            identifierForVendor = incoming["identifierForVendor"]!
+            token = incoming["token"]!
+            localizedModel = incoming["localizedModel"]!
+            vendorUUID = incoming["vendorUUID"]!
+            bundleIdentifier = incoming["bundleIdentifier"]!
+            systemVersion = incoming["systemVersion"]!
+            uniqueKey = incoming["uniqueKey"]!
+            
         } catch {
-            return "ERROR"
+            print("error")
+
         }
-        return toString()
+        writeValue(Query: "INSERT INTO DEVICES(name,model,systemName,appVersion,identifierForVendor,token,localizedModel,vendorUUID,bundleIdentifier,systemVersion,uniqueKey,creationDate) values(\"\(name)\",\"\(model)\",\"\(systemName)\",\"\(appVersion)\",\"\(identifierForVendor)\",\"\(token)\",\"\(localizedModel)\",\"\(vendorUUID)\",\"\(bundleIdentifier)\",\"\(systemVersion)\",\"\(uniqueKey)\",NOW())")
     }
     
     
-    // Convenient encoding method that returns a string from JSON objects.
-    private func toString() -> String {
-        var out = [String]()
-        
-        for m in data {
-            do {
-                out.append(try m.jsonEncodedString())
-            } catch {
-                print(error)
-            }
-        }
-        return "[\(out.joined(separator: ","))]"
-    }
+//        // Ordinarily in an API list directive, cursor commands would be included.
+//    public func list() -> String {
+//        return toString()
+//    }
+    //
+//
+//    // Convenient encoding method that returns a string from JSON objects.
+//    //Json objesini string olarak döndürüyor
+//    private func toString() -> String {
+//        var out = [String]()
+//
+//        for m in jsonObjects {
+//            do {
+//                out.append(try m.jsonEncodedString())
+//            } catch {
+//                print(error)
+//            }
+//        }
+//        return "[\(out.joined(separator: ","))]"
+//    }
     
     
     
     func notify(title: String, message: String, deviceTokens: [String], isSilent: Bool) {
-       var silentValue = "1"
-        var notItems: [APNSNotificationItem] = [.alertTitle(title), .alertBody(message), .sound("default"), .threadId(silentValue)]
+        var notItems: [APNSNotificationItem] = [.alertTitle(title), .alertBody(message), .sound("default")]
         if isSilent {
-            silentValue = "0"
-             notItems = [.contentAvailable]
+            print("silent gönderildi.")
+            notItems.removeAll()
+            notItems = [.contentAvailable]
         }
-        print("silent value gönderildi.: " + silentValue)
         let n = NotificationPusher(apnsTopic: notificationsAppId)
         
         n.pushAPNS(

@@ -3,23 +3,9 @@ import PerfectHTTP
 import PerfectHTTPServer
 import Foundation
 import PerfectNotifications
-import PerfectRepeater
+
+
 // your app id. we use this as the configuration name, but they do not have to match
-
-let c = {
-    () -> Bool in
-    print("loop")
-    writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
-    writeValue(Query: "INSERT INTO Devices(token) values(\"merhaba\")")
-    return true
-}
-
-Repeater.exec(timer: 3.0, callback: c)
-
-var shouldKeepRunning = true        // change this `false` to stop the application from running
-let theRL = RunLoop.current         // Need a reference to the current run loop
-while shouldKeepRunning && theRL.run(mode: .defaultRunLoopMode, before: .distantFuture) {  }
-
 
 let notificationsAppId = SECRET_NOTIFICATIONS_APP_ID
 let apnsKeyIdentifier = SECRET_APNS_KEY_IDENTIFIER

@@ -13,7 +13,7 @@ import PerfectHTTPServer
 func notificationHandler(data: [String:Any]) throws -> RequestHandler {
     return {
         request, response in
-        print("notify")
+        print("notify Handler")
         
         response.setHeader(.contentType, value: "application/json")
         response.appendBody(string: Notifier().notify(withJSONRequest: request.postBodyString ?? "Empty Body"))
@@ -29,7 +29,23 @@ func notifyAllHandler(data: [String:Any]) throws -> RequestHandler {
         
         readAll(completion: { (tokens) in
             print("herkese gönderiliyor")
-            Device.instance.notify(title: "HERKESE", message: "TOKEN", deviceTokens: tokens, isSilent: false)
+            
+            var title = "" , msg = "" , silentValue = "", isSilent = true
+            
+            do {
+                let incoming = try request.postBodyString!.jsonDecode() as! [String: String]
+                title = incoming["title"] ?? ""
+                msg   = incoming["msg"] ?? ""
+                silentValue = incoming["silentValue"] ?? ""
+            } catch {
+                print("error")
+            }
+            
+            if silentValue == "1" {
+                isSilent = false
+            }
+            
+            Device.instance.notify(title: title, message: msg, deviceTokens: tokens, isSilent: true)
             // Setting the response content type explicitly to application/json
             response.setHeader(.contentType, value: "application/json")
             // Setting the body response to the JSON list generated
@@ -48,21 +64,13 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         print("POST api/v1/postDevice/json geldi")
         writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
         print(request.postBodyString!)
-        let newDevice = DeviceJsonObject(mToken: "")
-        
-        do {
-            let incoming = try request.postBodyString!.jsonDecode() as! [String: String]
-            newDevice.token = incoming["token"] ?? ""
-        } catch {
-            print("error")
-        }
-        writeValue(Query: "INSERT INTO Devices(token) values(\"\(newDevice.token)\")")
-        
-        
+       
+        _ = Device(request.postBodyString!)
+
         // Setting the response content type explicitly to application/json
         response.setHeader(.contentType, value: "application/json")
         // Adding a new "person", passing the just the request's post body as a raw string to the function.
-        response.appendBody(string: "1")
+        response.appendBody(string: "success")
         // Signalling that the request is completed
         response.completed()
         
