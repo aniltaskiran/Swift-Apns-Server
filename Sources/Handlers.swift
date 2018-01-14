@@ -45,11 +45,11 @@ func notifyAllHandler(data: [String:Any]) throws -> RequestHandler {
                 isSilent = false
             }
             
-            Device.instance.notify(title: title, message: msg, deviceTokens: tokens, isSilent: true)
+            Device.instance.notify(title: title, message: msg, deviceTokens: tokens, isSilent: isSilent)
             // Setting the response content type explicitly to application/json
             response.setHeader(.contentType, value: "application/json")
             // Setting the body response to the JSON list generated
-            response.appendBody(string: "[\(tokens.joined(separator: ","))]")
+            response.appendBody(string: "success")
             // Signalling that the request is completed
             response.completed()
         })
