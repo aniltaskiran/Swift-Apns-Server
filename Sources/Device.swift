@@ -29,7 +29,7 @@ static let instance = Device()
 
     
     func registerToken(token: String){
-        writeValue(Query: "INSERT INTO Tokens (token, date) VALUES ('newToken', NOW())");
+        writeValue(Query: "REPLACE INTO Tokens (token, date) VALUES ('\(token)', NOW())")
     }
     
     init() {
