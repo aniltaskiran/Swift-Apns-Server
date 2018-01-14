@@ -55,8 +55,7 @@ static let instance = Device()
 
         }
         print("json dönüştü")
-        let cString = name.cString(using: String.Encoding.utf8)
-        writeValue(Query: "INSERT INTO Devices(name,model,systemName,appVersion,identifierForVendor,token,localizedModel,vendorUUID,bundleIdentifier,systemVersion,uniqueKey,creationDate)  values('\(String(describing: cString))','\(model)','\(systemName)','\(appVersion)','\(identifierForVendor)','\(token)','\(localizedModel)','\(vendorUUID)','\(bundleIdentifier)','\(systemVersion)','\(uniqueKey)',NOW())")
+        writeValue(Query: "INSERT INTO Devices(name,model,systemName,appVersion,identifierForVendor,token,localizedModel,vendorUUID,bundleIdentifier,systemVersion,uniqueKey,creationDate)  values('(Anıl taşkıranüiğIç)','\(model)','\(systemName)','\(appVersion)','\(identifierForVendor)','\(token)','\(localizedModel)','\(vendorUUID)','\(bundleIdentifier)','\(systemVersion)','\(uniqueKey)',NOW())")
     }
     
     
