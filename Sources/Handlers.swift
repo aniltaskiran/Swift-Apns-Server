@@ -79,6 +79,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         
         print("POST api/v1/postDevice/json geldi")
         print(request.postBodyString!)
+        
         do {
             print("json objesi dönüştürülüyor")
             let incoming = try request.postBodyString?.jsonDecode() as! [String: Any]
@@ -94,9 +95,8 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
             }
         } catch {
             print("error")
-            
         }
-        _ = Device(request.postBodyString!)
+//        _ = Device(request.postBodyString!)
         
         // Setting the response content type explicitly to application/json
         response.setHeader(.contentType, value: "application/json")
