@@ -1,5 +1,5 @@
 //
-//  Config.swift
+//  MySQL.swift
 //  CreateYourOwnApnsPackageDescription
 //
 //  Created by Anıl T. on 12.01.2018.
@@ -14,11 +14,10 @@ let testPassword = SECRET_TEST_PASSWORD
 let testDB = SECRET_TESTDB
 
 
-//Obviously change these details to a database and user you have already defined
 
 private func fetchData(completion: (_ MySQL: MySQL) -> Void) {
     
-    let mysql = MySQL() // Create an instance of MySQL to work with
+    let mysql = MySQL()
     
     let connected = mysql.connect(host: testHost, user: testUser, password: testPassword)
     
@@ -36,10 +35,9 @@ private func fetchData(completion: (_ MySQL: MySQL) -> Void) {
     
     //Choose the database to work with
     guard mysql.selectDatabase(named: testDB) else {
-        print("seçilemedi")
+        print("database seçiminde hata.")
         return
     }
-    print("seçildi")
     completion(mysql)
 }
 
@@ -77,6 +75,7 @@ func writeValue(Query: String){
     let theStatement = MySQLStmt(mysql)
     _ = theStatement.prepare(statement: Query)
     _ = theStatement.execute()
+        
     print("yazıldı.")
     }
 }
