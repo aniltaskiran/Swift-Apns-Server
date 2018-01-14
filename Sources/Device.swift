@@ -55,12 +55,7 @@ static let instance = Device()
 
         }
         print("json dönüştü")
-        let x =  "Anıl taşkıranüiğIç"
-        let esc_str = x.addingPercentEncoding(withAllowedCharacters: .urlPathAllowed)
-        let d = x.utf8
-        let dsd = x.utf8DecodedString()
-
-        writeValue(Query: "INSERT INTO Devices(name,model,systemName,appVersion,identifierForVendor,token,localizedModel,vendorUUID,bundleIdentifier,systemVersion,uniqueKey,creationDate)  values('\(x.utf8EncodedString())','\(esc_str)','\(d)','\(dsd)','\(identifierForVendor)','\(token)','\(localizedModel)','\(vendorUUID)','\(bundleIdentifier)','\(systemVersion)','\(uniqueKey)',NOW())")
+        writeValue(Query: "INSERT INTO Devices(name,model,systemName,appVersion,identifierForVendor,token,localizedModel,vendorUUID,bundleIdentifier,systemVersion,uniqueKey,creationDate)  values('\(name)','\(model)','\(systemName)','\(appVersion)','\(identifierForVendor)','\(token)','\(localizedModel)','\(vendorUUID)','\(bundleIdentifier)','\(systemVersion)','\(uniqueKey)',NOW())")
     }
     
     
