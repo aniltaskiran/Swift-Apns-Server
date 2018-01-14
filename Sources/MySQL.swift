@@ -78,7 +78,8 @@ func writeValue(Query: String){
     _ = theStatement.execute()
 //        let theResults = theStatement.results()
 //        let error = theStatement.errorMessage()
-//    print(error)
+//
+//    print("error: " + error)
     print("yazıldı.")
     }
 }

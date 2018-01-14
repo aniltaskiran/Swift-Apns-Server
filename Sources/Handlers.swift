@@ -83,19 +83,22 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         do {
             print("json objesi dönüştürülüyor")
             let incoming = try request.postBodyString?.jsonDecode() as! [String: Any]
-            let kind = incoming["kind"] as! String
-            switch kind {
-            case "token":
-                let token = incoming["token"] as! String
-                Device.instance.registerToken(token: token)
-                print("json objesi gönderildi.")
-                break
-            default:
-                break
+            if let kind = incoming["kind"] as! String? {
+                switch kind {
+                case "token":
+                    if let token = incoming["token"] as! String? {
+                        Device.instance.registerToken(token: token)
+                        print("json objesi gönderildi.")
+                    }
+                    break
+                default:
+                    break
+                }
             }
-        } catch {
-            print("error")
-        }
+            } catch {
+                print("error")
+            }
+            
 //        _ = Device(request.postBodyString!)
         
         // Setting the response content type explicitly to application/json
@@ -105,6 +108,6 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         // Signalling that the request is completed
         response.completed()
         
-    }
+        }
 }
 
