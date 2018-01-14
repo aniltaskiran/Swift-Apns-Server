@@ -64,7 +64,7 @@ static let instance = Device()
 
         }
         print("json dönüştü")
-        writeValue(Query: "INSERT INTO DEVICES(name,model,systemName,appVersion,identifierForVendor,token,localizedModel,vendorUUID,bundleIdentifier,systemVersion,uniqueKey,creationDate) values(\"\(name)\",\"\(model)\",\"\(systemName)\",\"\(appVersion)\",\"\(identifierForVendor)\",\"\(token)\",\"\(localizedModel)\",\"\(vendorUUID)\",\"\(bundleIdentifier)\",\"\(systemVersion)\",\"\(uniqueKey)\",NOW())")
+        writeValue(Query: "INSERT INTO Devices(name,model,systemName,appVersion,identifierForVendor,token,localizedModel,vendorUUID,bundleIdentifier,systemVersion,uniqueKey,creationDate)  values('\(name)','\(model)','\(systemName)','\(appVersion)','\(identifierForVendor)','\(token)','\(localizedModel)','\(vendorUUID)','\(bundleIdentifier)','\(systemVersion)','\(uniqueKey)',NOW())")
     }
     
     
