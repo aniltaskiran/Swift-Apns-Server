@@ -76,9 +76,9 @@ func writeValue(Query: String){
     let theStatement = MySQLStmt(mysql)
     _ = theStatement.prepare(statement: Query)
     _ = theStatement.execute()
-        let theResults = theStatement.results()
-        let error = theStatement.errorMessage()
-    print(error)
+//        let theResults = theStatement.results()
+//        let error = theStatement.errorMessage()
+//    print(error)
     print("yazıldı.")
     }
 }
