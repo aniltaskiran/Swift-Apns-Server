@@ -76,9 +76,9 @@ func repeatFuncHandler(data: [String:Any]) throws -> RequestHandler {
 func registrationHandler(data: [String:Any]) throws -> RequestHandler {
     return {
         request, response in
-        
         print("POST api/v1/postDevice/json geldi")
         print(request.postBodyString!)
+        var responseString = "false"
         
         do {
             print("json objesi dönüştürülüyor")
@@ -87,7 +87,24 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                 switch kind {
                 case "token":
                     if let token = incoming["token"] as! String? {
-                        Device.instance.registerToken(token: token)
+                        responseString = Device.instance.registerToken(token: token)[0]
+                        print("json objesi gönderildi.")
+                    }
+                    break
+                case "addDevice":
+//                    var id: Int
+//                    var name: String ,model: String ,systemName: String ,appVersion: String ,vendorUUID: String ,bundleIdentifier: String, systemVersion: String
+                    
+                    if  let id = incoming["id"] as! Int?,
+                        let name = incoming["name"] as! String?,
+                        let model = incoming["model"] as! String?,
+                        let systemName = incoming["systemName"] as! String?,
+                        let appVersion = incoming["appVersion"] as! String?,
+                        let vendorUUID = incoming["vendorUUID"] as! String?,
+                        let bundleIdentifier = incoming["bundleIdentifier"] as! String?,
+                        let systemVersion = incoming["systemVersion"] as! String?
+                    {
+                        writeValue(Query: "Replace INTO Devices (ID,name,model,systemName,appVersion,bundleIdentifier,vendorUUID,systemVersion,creationDate) values('\(id)','\(name)','\(model)','\(systemName)','\(appVersion)','\(bundleIdentifier)','\(vendorUUID)','\(systemVersion)',NOW())")
                         print("json objesi gönderildi.")
                     }
                     break
@@ -104,7 +121,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         // Setting the response content type explicitly to application/json
         response.setHeader(.contentType, value: "application/json")
         // Adding a new "person", passing the just the request's post body as a raw string to the function.
-        response.appendBody(string: "success")
+        response.appendBody(string: responseString)
         // Signalling that the request is completed
         response.completed()
         

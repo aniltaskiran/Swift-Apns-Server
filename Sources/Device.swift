@@ -28,10 +28,11 @@ static let instance = Device()
     var uniqueKey:            String = ""
 
     
-    func registerToken(token: String){
+    func registerToken(token: String) -> [String]{
         writeValue(Query: "REPLACE INTO Tokens (token, date) VALUES ('\(token)', NOW())")
+       return returnID(token: token)  
     }
-    
+
     init() {
     }
     

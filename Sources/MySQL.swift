@@ -70,6 +70,34 @@ func readAll(completion: (_ tokens: [String]) -> Void){
     }
 }
 
+func returnID(token: String) -> [String]{
+    var allID:[String] = []
+
+    fetchData { (mysql) in
+        let theStatement = MySQLStmt(mysql)
+        
+        _ = theStatement.prepare(statement: "SELECT ID FROM Tokens where token = '\(token)'")
+        _ = theStatement.execute()
+        
+        let theResults = theStatement.results()
+//        let error = theStatement.errorMessage()
+        
+        print("\r\n")
+        
+        _ = theResults.forEachRow {
+            e in
+            
+            for i in 0..<e.count {
+                let theFieldName = theStatement.fieldInfo(index: i)!.name
+                print("\(theFieldName): \(e[i]!)")
+                allID.append("\(e[i]!)")
+            }
+            
+            print("\r\n")
+        }
+    }
+    return allID
+}
 
 func writeValue(Query: String){
     fetchData { (mysql) in
