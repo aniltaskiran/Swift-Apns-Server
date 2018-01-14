@@ -78,11 +78,26 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         request, response in
         
         print("POST api/v1/postDevice/json geldi")
-        writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
         print(request.postBodyString!)
-       
+        do {
+            print("json objesi dönüştürülüyor")
+            let incoming = try request.postBodyString?.jsonDecode() as! [String: Any]
+            let kind = incoming["kind"] as! String
+            switch kind {
+            case "token":
+                let token = incoming["token"] as! String
+                Device.instance.registerToken(token: token)
+                print("json objesi gönderildi.")
+                break
+            default:
+                break
+            }
+        } catch {
+            print("error")
+            
+        }
         _ = Device(request.postBodyString!)
-
+        
         // Setting the response content type explicitly to application/json
         response.setHeader(.contentType, value: "application/json")
         // Adding a new "person", passing the just the request's post body as a raw string to the function.
