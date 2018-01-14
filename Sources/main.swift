@@ -35,6 +35,7 @@ let confData = [
             "port":port,
             "routes":[
                 ["method":"post", "uri":"/notify", "handler":notificationHandler],
+                ["method":"post", "uri":"/api/v1/repeatFunc", "handler":repeatFuncHandler],
                 ["method":"post", "uri":"/api/v1/postDevice/json", "handler":registrationHandler],
                 ["method":"post", "uri":"/api/v1/notifyAll", "handler":notifyAllHandler],
                 ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
