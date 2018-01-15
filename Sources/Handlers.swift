@@ -92,6 +92,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                     }
                     break
                 case "addDevice":
+                    //github 
 //                    Database'de kullanılan değişkenler
 //                    var id: Int
 //                    var name: String ,model: String ,systemName: String ,appVersion: String ,vendorUUID: String ,bundleIdentifier: String, systemVersion: String
