@@ -137,12 +137,17 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                     print("json objesi gönderildi.")
                     break
                 default:
+                    print("default switch")
                     break
                 }
             } catch {
                 print("error")
             }
-        let jsonData = try? responseJson.jsonEncodedString()
+        
+        guard let jsonData = try? responseJson.jsonEncodedString() else {
+            print("json data yok")
+            return
+        }
         
         
 //        _ = Device(request.postBodyString!)
@@ -150,7 +155,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         // Setting the response content type explicitly to application/json
         response.setHeader(.contentType, value: "application/json")
         // Adding a new "person", passing the just the request's post body as a raw string to the function.
-        response.appendBody(string: jsonData!)
+        response.appendBody(string: jsonData)
         // Signalling that the request is completed
         response.completed()
         
