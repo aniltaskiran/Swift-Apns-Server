@@ -29,6 +29,7 @@ static let instance = Device()
 
     
     func registerToken(token: String) -> [String]{
+        print("register token'a girildi. yazılıyor.")
         writeValue(Query: "REPLACE INTO Tokens (token, date) VALUES ('\(token)', NOW())")
        return returnID(token: token)  
     }

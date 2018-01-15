@@ -111,6 +111,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                 switch kind {
                 case "token":
                     if let token = incoming["token"] as! String? {
+                        print("switch token")
                         responseJson["ID"] = "\(Device.instance.registerToken(token: token)[0])"
                         print("json objesi gönderildi.")
                     }
