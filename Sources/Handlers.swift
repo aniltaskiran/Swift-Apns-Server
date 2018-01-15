@@ -100,7 +100,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         
         do {
             print("json objesi dönüştürülüyor")
-            guard let incoming = try request.postBodyString?.jsonDecode() as! [String: AnyObject]? else {
+            guard let incoming = try request.postBodyString?.jsonDecode() as? [String: AnyObject] else {
                 print("error trying to convert data to JSON")
                 return
             }
