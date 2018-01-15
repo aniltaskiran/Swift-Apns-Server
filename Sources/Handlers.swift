@@ -80,10 +80,34 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         print(request.postBodyString!)
         var responseJson: [String: Any] = ["success":"false"]
         
+//        do {
+//            guard let ResponseJson = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else {
+//                print("error trying to convert data to JSON")
+//                return
+//            }
+//            print("The ResponseJson is: " + ResponseJson.description)
+//
+//            guard let responseSuccess = ResponseJson["success"] as? Int else {
+//                print("Could not get ResponseJson from JSON")
+//                return
+//            }
+//            print("The ResponseJson is: ")
+//            print(responseSuccess)
+//        } catch  {
+//            print("error trying to convert data to JSON")
+//            return
+//        }
+        
         do {
             print("json objesi dönüştürülüyor")
-            let incoming = try request.postBodyString?.jsonDecode() as! [String: Any]
-            if let kind = incoming["kind"] as! String? {
+            guard let incoming = try request.postBodyString?.jsonDecode() as! [String: AnyObject] else {
+                print("error trying to convert data to JSON")
+                return
+            }
+            guard let kind = incoming["kind"] as! String? else {
+                print("error there is no kind")
+                return
+            }
                 switch kind {
                 case "token":
                     if let token = incoming["token"] as! String? {
@@ -97,7 +121,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
 //                    var id: Int
 //                    var name: String ,model: String ,systemName: String ,appVersion: String ,vendorUUID: String ,bundleIdentifier: String, systemVersion: String
                     
-                    if  let id = incoming["id"] as! Int?,
+                    guard let id = incoming["id"] as! Int?,
                         let name = incoming["name"] as! String?,
                         let model = incoming["model"] as! String?,
                         let systemName = incoming["systemName"] as! String?,
@@ -105,15 +129,15 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                         let vendorUUID = incoming["vendorUUID"] as! String?,
                         let bundleIdentifier = incoming["bundleIdentifier"] as! String?,
                         let systemVersion = incoming["systemVersion"] as! String?
-                    {
-                        writeValue(Query: "Replace INTO Devices (ID,name,model,systemName,appVersion,bundleIdentifier,vendorUUID,systemVersion,creationDate) values('\(id)','\(name)','\(model)','\(systemName)','\(appVersion)','\(bundleIdentifier)','\(vendorUUID)','\(systemVersion)',NOW())")
-                        print("json objesi gönderildi.")
+                    else {
+                      print("add device tokenı yanlış")
                     }
+                    writeValue(Query: "Replace INTO Devices (ID,name,model,systemName,appVersion,bundleIdentifier,vendorUUID,systemVersion,creationDate) values('\(id)','\(name)','\(model)','\(systemName)','\(appVersion)','\(bundleIdentifier)','\(vendorUUID)','\(systemVersion)',NOW())")
+                    print("json objesi gönderildi.")
                     break
                 default:
                     break
                 }
-            }
             } catch {
                 print("error")
             }
