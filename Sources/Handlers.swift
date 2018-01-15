@@ -78,7 +78,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         request, response in
         print("POST api/v1/postDevice/json geldi")
         print(request.postBodyString!)
-        var responseJson: [String: Any] = ["succsess":"false"]
+        var responseJson: [String: Any] = ["success":"false"]
         
         do {
             print("json objesi dönüştürülüyor")
@@ -87,7 +87,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                 switch kind {
                 case "token":
                     if let token = incoming["token"] as! String? {
-                        responseJson["ID"] = Device.instance.registerToken(token: token)[0]
+                        responseJson["ID"] = "\(Device.instance.registerToken(token: token)[0])"
                         print("json objesi gönderildi.")
                     }
                     break
