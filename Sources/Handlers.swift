@@ -100,7 +100,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         
         do {
             print("json objesi dönüştürülüyor")
-            guard let incoming = try request.postBodyString?.jsonDecode() as! [String: AnyObject] else {
+            guard let incoming = try request.postBodyString?.jsonDecode() as! [String: AnyObject]? else {
                 print("error trying to convert data to JSON")
                 return
             }
@@ -121,7 +121,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
 //                    var id: Int
 //                    var name: String ,model: String ,systemName: String ,appVersion: String ,vendorUUID: String ,bundleIdentifier: String, systemVersion: String
                     
-                    guard let id = incoming["id"] as! Int?,
+                    guard let id = incoming["id"] as! String?,
                         let name = incoming["name"] as! String?,
                         let model = incoming["model"] as! String?,
                         let systemName = incoming["systemName"] as! String?,
@@ -131,6 +131,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                         let systemVersion = incoming["systemVersion"] as! String?
                     else {
                       print("add device tokenı yanlış")
+                        return
                     }
                     writeValue(Query: "Replace INTO Devices (ID,name,model,systemName,appVersion,bundleIdentifier,vendorUUID,systemVersion,creationDate) values('\(id)','\(name)','\(model)','\(systemName)','\(appVersion)','\(bundleIdentifier)','\(vendorUUID)','\(systemVersion)',NOW())")
                     print("json objesi gönderildi.")
