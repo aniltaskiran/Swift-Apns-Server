@@ -80,26 +80,9 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         print(request.postBodyString!)
         var responseJson: [String: Any] = ["success":"false"]
         
-//        do {
-//            guard let ResponseJson = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else {
-//                print("error trying to convert data to JSON")
-//                return
-//            }
-//            print("The ResponseJson is: " + ResponseJson.description)
-//
-//            guard let responseSuccess = ResponseJson["success"] as? Int else {
-//                print("Could not get ResponseJson from JSON")
-//                return
-//            }
-//            print("The ResponseJson is: ")
-//            print(responseSuccess)
-//        } catch  {
-//            print("error trying to convert data to JSON")
-//            return
-//        }
-        
         do {
             print("json objesi dönüştürülüyor")
+            
             guard let incoming = try request.postBodyString?.jsonDecode() as? [String:Any] else {
                 print("error trying to convert data to JSON")
                 return
@@ -115,6 +98,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                         print("switch token")
                         responseJson["ID"] = "\(Device.instance.registerToken(token: token)[0])"
                         print("json objesi gönderildi.")
+                        responseJson = ["success":"true"]
                     }
                     break
                 case "addDevice":
@@ -135,11 +119,14 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                       print("add device tokenı yanlış")
                         return
                     }
+                    
+                    responseJson = ["success":"true"]
+                    
                     writeValue(Query: "Replace INTO Devices (ID,name,model,systemName,appVersion,bundleIdentifier,vendorUUID,systemVersion,creationDate) values('\(id)','\(name)','\(model)','\(systemName)','\(appVersion)','\(bundleIdentifier)','\(vendorUUID)','\(systemVersion)',NOW())")
                     print("json objesi gönderildi.")
                     break
                 default:
-                    print("default switch")
+                    responseJson["success"] = "false"
                     break
                 }
             } catch {
