@@ -37,4 +37,86 @@ struct Notifier {
     }
 }
 
+struct DeviceJson {
+    func checkKind(withJSONRequest: String) -> String{
+        var responseJson: [String: Any] = ["success":"false"]
+
+        let response = "{\"Error\": \"Failed to decode json\"}"
+        print(response)
+        
+        do {
+            print("json objesi dönüştürülüyor")
+            
+            guard let incoming = try withJSONRequest.jsonDecode() as? [String:Any] else {
+                print("error trying to convert data to JSON")
+                return response
+            }
+            
+            guard let kind = incoming["kind"] as! String? else {
+                print("error there is no kind")
+                return response
+            }
+            switch kind {
+            case "token":
+                responseJson = registerDevice(incoming: incoming)
+                break
+            case "addDevice":
+                responseJson = addDevice(incoming: incoming)
+                break
+            default:
+                responseJson["success"] = "false"
+                break
+            }
+        } catch {
+            print("error")
+        }
+        
+        
+        guard let jsonData = try? responseJson.jsonEncodedString() else {
+            print("json data yok")
+            return response
+        }
+        
+        return jsonData
+    }
+    
+   private func registerDevice(incoming: [String:Any]) -> [String: Any] {
+        var responseJson: [String: String] = ["success":"false"]
+        if let token = incoming["token"] as! String? {
+            responseJson["ID"] = "\(Device.instance.registerToken(token: token)[0])"
+            print("json token objesi gönderildi.")
+            responseJson["success"] = "true"
+        }
+        return responseJson
+    }
+    
+    private func addDevice(incoming: [String:Any]) -> [String: Any] {
+    var responseJson: [String: String] = ["success":"false"]
+    //github
+    //                    Database'de kullanılan değişkenler
+    //                    var id: Int
+    //                    var name: String ,model: String ,systemName: String ,appVersion: String ,vendorUUID: String ,bundleIdentifier: String, systemVersion: String
+    
+    guard let id = incoming["id"] as! String?,
+    let name = incoming["name"] as! String?,
+    let model = incoming["model"] as! String?,
+    let systemName = incoming["systemName"] as! String?,
+    let appVersion = incoming["appVersion"] as! String?,
+    let vendorUUID = incoming["vendorUUID"] as! String?,
+    let bundleIdentifier = incoming["bundleIdentifier"] as! String?,
+    let systemVersion = incoming["systemVersion"] as! String?
+    else {
+    print("add device tokenı yanlış")
+    return responseJson
+    }
+    
+    responseJson["success"] = "true"
+    
+    writeValue(Query: "Replace INTO Devices (ID,name,model,systemName,appVersion,bundleIdentifier,vendorUUID,systemVersion,creationDate) values('\(id)','\(name)','\(model)','\(systemName)','\(appVersion)','\(bundleIdentifier)','\(vendorUUID)','\(systemVersion)',NOW())")
+    print("json objesi gönderildi.")
+    
+    return responseJson
+
+}
+}
 
