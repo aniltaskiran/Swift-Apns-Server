@@ -98,7 +98,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                         print("switch token")
                         responseJson["ID"] = "\(Device.instance.registerToken(token: token)[0])"
                         print("json objesi gönderildi.")
-                        responseJson = ["success":"true"]
+                        responseJson["success"] = "true"
                     }
                     break
                 case "addDevice":
@@ -120,8 +120,8 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                         return
                     }
                     
-                    responseJson = ["success":"true"]
-                    
+                    responseJson["success"] = "true"
+
                     writeValue(Query: "Replace INTO Devices (ID,name,model,systemName,appVersion,bundleIdentifier,vendorUUID,systemVersion,creationDate) values('\(id)','\(name)','\(model)','\(systemName)','\(appVersion)','\(bundleIdentifier)','\(vendorUUID)','\(systemVersion)',NOW())")
                     print("json objesi gönderildi.")
                     break
