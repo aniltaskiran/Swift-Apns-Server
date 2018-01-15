@@ -78,7 +78,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
         request, response in
         print("POST api/v1/postDevice/json geldi")
         print(request.postBodyString!)
-        var responseString = "false"
+        var responseJson: [String: Any] = ["succsess":"false"]
         
         do {
             print("json objesi dönüştürülüyor")
@@ -87,7 +87,7 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
                 switch kind {
                 case "token":
                     if let token = incoming["token"] as! String? {
-                        responseString = Device.instance.registerToken(token: token)[0]
+                        responseJson["ID"] = Device.instance.registerToken(token: token)[0]
                         print("json objesi gönderildi.")
                     }
                     break
@@ -115,13 +115,16 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
             } catch {
                 print("error")
             }
-            
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: responseJson)
+        
+        
 //        _ = Device(request.postBodyString!)
         
         // Setting the response content type explicitly to application/json
         response.setHeader(.contentType, value: "application/json")
         // Adding a new "person", passing the just the request's post body as a raw string to the function.
-        response.appendBody(string: responseString)
+        response.appendBody(string: jsonData)
         // Signalling that the request is completed
         response.completed()
         
