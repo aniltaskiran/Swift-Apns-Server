@@ -60,14 +60,11 @@ func repeatFuncHandler(data: [String:Any]) throws -> RequestHandler {
     return {
         request, response in
         print("POST api/v1/postDevice/json geldi")
-        writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
         print(request.postBodyString!)
         
-        // Setting the response content type explicitly to application/json
+        writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
         response.setHeader(.contentType, value: "application/json")
-        // Adding a new "person", passing the just the request's post body as a raw string to the function.
-        response.appendBody(string: "success")
-        // Signalling that the request is completed
+        response.appendBody(string: Notifier().notifyAll())
         response.completed()
     }
 }

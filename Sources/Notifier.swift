@@ -10,7 +10,7 @@ import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
 
-// IT WORKS WITH WEB SIDE 
+// IT WORKS FOR WEB SIDE
 struct Notifier {
     func notify(withJSONRequest json: String) -> String {
         var response = "{\"Error\": \"Failed to invoke notification\"}"
@@ -35,9 +35,17 @@ struct Notifier {
         
         return response
     }
+    
+    func notifyAll(title: String = "", message: String = "", isSilent: Bool = true)-> String {
+        readAll(completion: { (tokens) in
+            Device.instance.notify(title: title, message: message,deviceTokens: tokens,isSilent: isSilent)
+        })
+        return "{\"success\": true}"
+    }
 }
 
 struct DeviceJson {
+
     func checkKind(withJSONRequest: String) -> String{
         var responseJson: [String: Any] = ["success":"false"]
 
