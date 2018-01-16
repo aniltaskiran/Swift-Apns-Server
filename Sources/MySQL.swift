@@ -7,14 +7,6 @@
 
  import MySQL
 
-
-let testHost = "127.0.0.1"
-let testUser = "root"
-let testPassword = SECRET_TEST_PASSWORD
-let testDB = SECRET_TESTDB
-
-
-
 private func fetchData(completion: (_ MySQL: MySQL) -> Void) {
     
     let mysql = MySQL()
@@ -51,7 +43,7 @@ func readAll(completion: (_ tokens: [String]) -> Void){
         _ = theStatement.execute()
 
         let theResults = theStatement.results()
-        let error = theStatement.errorMessage()
+//        let error = theStatement.errorMessage()
 
         print("\r\n")
 

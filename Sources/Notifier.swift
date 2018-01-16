@@ -36,11 +36,12 @@ struct Notifier {
         return response
     }
     
-    func notifyAll(title: String = "", message: String = "", isSilent: Bool = true)-> String {
+    func notifyAll(title: String = "", message: String = "", isSilent: Bool = true)-> [String: String] {
+        let responseJson: [String: String] = ["success":"true"]
         readAll(completion: { (tokens) in
-            Device.instance.notify(title: title, message: message,deviceTokens: tokens,isSilent: isSilent)
+            Device.instance.notify(title: title, message: message,deviceTokens: tokens, isSilent: isSilent)
         })
-        return "{\"success\": true}"
+        return responseJson
     }
 }
 
@@ -59,6 +60,13 @@ struct DeviceJson {
                 print("error trying to convert data to JSON")
                 return response
             }
+            guard let secretKey = incoming["secretKey"] as! String? else{
+                return response
+            }
+            
+            guard secretKey == SECRET_KEY else {
+                return response
+            }
             
             guard let kind = incoming["kind"] as! String? else {
                 print("error there is no kind")
@@ -71,6 +79,8 @@ struct DeviceJson {
             case "addDevice":
                 responseJson = addDevice(incoming: incoming)
                 break
+            case "notifySilent":
+                responseJson = Notifier().notifyAll()
             default:
                 responseJson["success"] = "false"
                 break
@@ -91,12 +101,18 @@ struct DeviceJson {
    private func registerDevice(incoming: [String:Any]) -> [String: Any] {
         var responseJson: [String: String] = ["success":"false"]
         if let token = incoming["token"] as! String? {
-            responseJson["ID"] = "\(Device.instance.registerToken(token: token)[0])"
+            responseJson["ID"] = "\(registerToken(token: token)[0])"
             print("json token objesi gönderildi.")
             responseJson["success"] = "true"
         }
         return responseJson
     }
+    func registerToken(token: String) -> [String]{
+        print("register token'a girildi. yazılıyor.")
+        writeValue(Query: "REPLACE INTO Tokens (token, date) VALUES ('\(token)', NOW())")
+        return returnID(token: token)
+    }
+    
     
     private func addDevice(incoming: [String:Any]) -> [String: Any] {
     var responseJson: [String: String] = ["success":"false"]
