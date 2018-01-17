@@ -24,6 +24,8 @@ struct Notifier {
                     isSilent = true
                 }
                 readAll(completion: { (tokens) in
+                    print("token geldi")
+                    print("token")
                     Device.instance.notify(title: title, message: message,deviceTokens: tokens,isSilent: isSilent)
                 })
                 

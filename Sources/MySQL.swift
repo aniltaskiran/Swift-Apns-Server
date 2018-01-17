@@ -39,7 +39,7 @@ func readAll(completion: (_ tokens: [String]) -> Void){
 
         let theStatement = MySQLStmt(mysql)
 
-        _ = theStatement.prepare(statement: "SELECT * FROM Devices")
+        _ = theStatement.prepare(statement: "SELECT token FROM Tokens")
         _ = theStatement.execute()
 
         let theResults = theStatement.results()
