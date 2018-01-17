@@ -21,8 +21,6 @@ NotificationPusher.addConfigurationAPNS(
 
 let port = 8181
 
-getJsonData().getData()
-
 let confData = [
     "servers": [
         // Configuration data for one server which:
@@ -35,6 +33,7 @@ let confData = [
             "port":port,
             "routes":[
                 ["method":"post", "uri":"/notify", "handler":notificationHandler],
+                ["method":"post", "uri":"/api/v1/getBitcoinValues", "handler":getBitcoinValues],
                 ["method":"post", "uri":"/api/v1/repeatFunc", "handler":repeatFuncHandler],
                 ["method":"post", "uri":"/api/v1/postDevice/json", "handler":registrationHandler],
                 ["method":"post", "uri":"/api/v1/notifyAll", "handler":notifyAllHandler],

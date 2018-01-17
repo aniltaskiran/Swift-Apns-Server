@@ -20,6 +20,17 @@ func notificationHandler(data: [String:Any]) throws -> RequestHandler {
     }
 }
 
+func getBitcoinValues(data: [String:Any]) throws -> RequestHandler {
+    return {
+        request, response in
+        print("bitcoin Handler")
+        getJsonData().getData()
+        response.setHeader(.contentType, value: "application/json")
+        response.appendBody(string:"Bitcoin")
+        response.completed()
+    }
+}
+
 
 func notifyAllHandler(data: [String:Any]) throws -> RequestHandler {
     return {

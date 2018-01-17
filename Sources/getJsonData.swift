@@ -66,12 +66,28 @@ print("Body:")
 do {
     let str = UTF8Encoding.encode(bytes: body)
     let decoded = try str.jsonDecode() as? [String:Any]
-    guard let ip = decoded?["ip"] as! String? else {
-        return
+    guard let sell = decoded!["sell"] as! String?,
+        let high = decoded!["high"] as! String?,
+        let buy = decoded!["buy"] as! String?/*
+        let systemName = incoming["systemName"] as! String?,
+        let appVersion = incoming["appVersion"] as! String?,
+        let vendorUUID = incoming["vendorUUID"] as! String?,
+        let bundleIdentifier = incoming["bundleIdentifier"] as! String?,
+        let systemVersion = incoming["systemVersion"] as! String?*/
+        else {
+            print("bitcoin json yanlış")
+            return
     }
-    print(ip)
+    print("sell \(sell)")
+    print("buy \(buy)")
+    print("high\(high)")
+    writeValue(Query:  "INSERT INTO Bitcoin (sell,high,buy,date) values('\(sell)','\(high)','\(buy)',NOW())")
+    
 } catch {
     print("Decode error: \(error)")
 }
 }
+
 }
+
+
