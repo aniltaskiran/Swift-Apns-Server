@@ -25,7 +25,7 @@ var body = [UInt8]()
        
 
 // This will return JSON
-let curlObject2 = CURL(url: "http://ip.jsontest.com/")
+let curlObject2 = CURL(url: "http://koinim.com/ticker")
 
 print("Test URL: \(curlObject2.url)")
 
