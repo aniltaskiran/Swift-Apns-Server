@@ -21,6 +21,7 @@ NotificationPusher.addConfigurationAPNS(
 
 let port = 8181
 
+getJsonData().getData()
 
 let confData = [
     "servers": [
