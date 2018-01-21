@@ -66,14 +66,10 @@ print("Body:")
 do {
     let str = UTF8Encoding.encode(bytes: body)
     let decoded = try str.jsonDecode() as? [String:Any]
+    print(decoded ?? "")
     guard let sell = decoded!["sell"] as! String?,
         let high = decoded!["high"] as! String?,
-        let buy = decoded!["buy"] as! String?/*
-        let systemName = incoming["systemName"] as! String?,
-        let appVersion = incoming["appVersion"] as! String?,
-        let vendorUUID = incoming["vendorUUID"] as! String?,
-        let bundleIdentifier = incoming["bundleIdentifier"] as! String?,
-        let systemVersion = incoming["systemVersion"] as! String?*/
+        let buy = decoded!["buy"] as! String?
         else {
             print("bitcoin json yanlış")
             return
