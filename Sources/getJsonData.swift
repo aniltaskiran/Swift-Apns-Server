@@ -15,7 +15,7 @@ import cURL
 struct getJsonData {
     
     func getData(){
-
+// bunun üzerine çalışılacak bitcoin verileri toplanması
         
         
         // Container variables
