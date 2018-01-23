@@ -25,7 +25,7 @@ var body = [UInt8]()
        
 
 // This will return JSON
-let curlObject2 = CURL(url: "http://koinim.com/ticker")
+let curlObject2 = CURL(url: "https://koinim.com/ticker/")
 
 print("Test URL: \(curlObject2.url)")
 
@@ -56,10 +56,10 @@ let _ = perf.1
 curlObject2.close()
 
 // Decoding the result.
-let hstr2 = UTF8Encoding.encode(bytes: header)
+//let hstr2 = UTF8Encoding.encode(bytes: header)
 
-print("Header:")
-print(hstr2)
+//print("Header:")
+//print(hstr2)
 
 // The following decodes the body array to a string, but then converts it as JSON to a [String:Any] object
 print("Body:")
@@ -67,9 +67,9 @@ do {
     let str = UTF8Encoding.encode(bytes: body)
     let decoded = try str.jsonDecode() as? [String:Any]
     print(decoded ?? "")
-    guard let sell = decoded!["sell"] as! String?,
-        let high = decoded!["high"] as! String?,
-        let buy = decoded!["buy"] as! String?
+    guard let sell = decoded!["sell"] as! Double?,
+        let high = decoded!["high"] as! Double?,
+        let buy = decoded!["buy"] as! Double?
         else {
             print("bitcoin json yanlış")
             return
