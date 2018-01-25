@@ -69,7 +69,8 @@ do {
     print(decoded ?? "")
     guard let sell = decoded!["sell"] as! Double?,
         let high = decoded!["high"] as! Double?,
-        let buy = decoded!["buy"] as! Double?
+        let buy = decoded!["buy"] as! Double?,
+        let changeRate = decoded!["change_rate"] as! Double?
         else {
             print("bitcoin json yanlış")
             return
@@ -77,13 +78,13 @@ do {
     print("sell \(sell)")
     print("buy \(buy)")
     print("high\(high)")
-    writeValue(Query:  "INSERT INTO Bitcoin (sell,high,buy,date) values('\(sell)','\(high)','\(buy)',NOW())")
+    print("changeRate \(changeRate)")
+    writeValue(Query:  "INSERT INTO Bitcoin (sell,high,buy,changeRate,date) values('\(sell)','\(high)','\(buy)',\(changeRate),NOW())")
     
 } catch {
     print("Decode error: \(error)")
 }
 }
-
 }
 
 
