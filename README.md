@@ -1,1 +1,3 @@
-# Swift Apns Server
+# myAwesome
+
+A description of this package.
