@@ -15,7 +15,7 @@ let confData = [
             "port":port,
             "routes":[
                 ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
-                 "documentRoot":"/root/myAwesome/webroot",
+                 "documentRoot":"/Users/kev/Documents/GitHub/Swift-Apns-Server/webroot",
                  "allowResponseFilters":true]
             ],
             "filters":[
