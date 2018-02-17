@@ -24,7 +24,7 @@ func getBitcoinValues(data: [String:Any]) throws -> RequestHandler {
     return {
         request, response in
         print("bitcoin Handler")
-        getJsonData().getData()
+//        getJsonData().getData()
         response.setHeader(.contentType, value: "application/json")
         response.appendBody(string:"Bitcoin")
         response.completed()
