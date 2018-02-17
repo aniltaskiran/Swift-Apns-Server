@@ -5,14 +5,14 @@
 //  Created by Anıl T. on 12.01.2018.
 //
 
-import MySQL
+import PerfectMySQL
 
 private func fetchData(completion: (_ MySQL: MySQL) -> Void) {
 
     let mysql = MySQL()
-
+    
     let connected = mysql.connect(host: testHost, user: testUser, password: testPassword)
-
+    
     guard connected else {
         // verify we connected successfully
         print(mysql.errorMessage())

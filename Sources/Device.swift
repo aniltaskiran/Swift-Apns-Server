@@ -8,6 +8,7 @@ import PerfectHTTP
 import PerfectNotifications
 
 
+
 public class Device {
 
     static let instance = Device()
