@@ -9,12 +9,15 @@ let package = Package(
         .library(name: "SwiftServer", targets: ["SwiftServer"]),
         ],
     dependencies: [
-        .package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", .upToNextMinor(from: "3.0.0"))
+        .package(url: "https://github.com/PerfectlySoft/Perfect-HTTPServer.git", .upToNextMinor(from: "3.0.0")),
+        .package(url:"https://github.com/PerfectlySoft/Perfect-Notifications.git", .upToNextMinor(from: "3.0.0")),
+        .package(url:"https://github.com/PerfectlySoft/Perfect-MySQL.git", .upToNextMinor(from: "3.0.0"))
+
         ],
     targets: [
         .target(
             name: "SwiftServer",
-            dependencies: ["PerfectHTTPServer"],
+            dependencies: ["PerfectHTTPServer","PerfectNotifications","PerfectMySQL"],
             path: "Sources")
         ]
 )
