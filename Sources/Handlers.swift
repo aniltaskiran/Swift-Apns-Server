@@ -8,14 +8,14 @@
 
 import PerfectLib
 import PerfectHTTP
-import PerfectHTTPServer
+//import PerfectHTTPServer
 
 func notificationHandler(data: [String:Any]) throws -> RequestHandler {
     return {
         request, response in
         print("notify Handler")
         response.setHeader(.contentType, value: "application/json")
-        response.appendBody(string: Notifier().notify(withJSONRequest: request.postBodyString ?? "Empty Body"))
+        response.appendBody(string:/* Notifier().notify(withJSONRequest: request.postBodyString ?? */ "Empty Body")
         response.completed()
     }
 }
@@ -55,7 +55,7 @@ func notifyAllHandler(data: [String:Any]) throws -> RequestHandler {
                 isSilent = false
             }
             
-            Device.instance.notify(title: title, message: msg, deviceTokens: tokens, isSilent: isSilent)
+//            Device.instance.notify(title: title, message: msg, deviceTokens: tokens, isSilent: isSilent)
             response.setHeader(.contentType, value: "application/json")
             response.appendBody(string: "success")
             response.completed()
@@ -72,7 +72,8 @@ func repeatFuncHandler(data: [String:Any]) throws -> RequestHandler {
         
         writeValue(Query: "INSERT INTO Deneme(date) values(NOW())")
         response.setHeader(.contentType, value: "application/json")
-        response.appendBody(string: DeviceJson().checkKind(withJSONRequest: request.postBodyString!))
+        response.appendBody(string: "body")
+//        response.appendBody(string: DeviceJson().checkKind(withJSONRequest: request.postBodyString!))
         response.completed()
     }
 }
@@ -85,7 +86,8 @@ func registrationHandler(data: [String:Any]) throws -> RequestHandler {
 
         
         response.setHeader(.contentType, value: "application/json")
-        response.appendBody(string: DeviceJson().checkKind(withJSONRequest: request.postBodyString!))
+        response.appendBody(string: "body")
+//        response.appendBody(string: DeviceJson().checkKind(withJSONRequest: request.postBodyString!))
         response.completed()
         
         }

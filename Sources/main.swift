@@ -2,7 +2,7 @@ import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
 import Foundation
-import PerfectNotifications
+//import PerfectNotifications
 
 
 // your app id. we use this as the configuration name, but they do not have to match
@@ -15,12 +15,12 @@ let apnsPrivateKey = SECRET_APNS_PRIVATE_KEY
 //getJsonData().getData()
 
 
-NotificationPusher.addConfigurationAPNS(
-    name: notificationsAppId,
-    production: false, // should be false when running pre-release app in debugger, must be on device (emulator does not work)
-    keyId: apnsKeyIdentifier,
-    teamId: apnsTeamIdentifier,
-    privateKeyPath: apnsPrivateKey)
+//NotificationPusher.addConfigurationAPNS(
+//    name: notificationsAppId,
+//    production: false, // should be false when running pre-release app in debugger, must be on device (emulator does not work)
+//    keyId: apnsKeyIdentifier,
+//    teamId: apnsTeamIdentifier,
+//    privateKeyPath: apnsPrivateKey)
 
 let port = 8181
 
