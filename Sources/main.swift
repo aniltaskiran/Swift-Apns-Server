@@ -39,7 +39,7 @@ let confData = [
                 ["method":"post", "uri":"/api/v1/postDevice/json", "handler":registrationHandler],
                 ["method":"post", "uri":"/api/v1/notifyAll", "handler":notifyAllHandler],
                 ["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
-                 "documentRoot":"/home/" + SECRET_USER + "/Swift-Apns-Server/webroot",
+                 "documentRoot":"./webroot",
                  "allowResponseFilters":true]
             ],
             "filters":[
