@@ -48,6 +48,11 @@ let confData = [
                     "priority":"high",
                     "name":PerfectHTTPServer.HTTPFilter.contentCompression,
                     ]
+            ],
+            "tlsConfig":[
+                "certPath": "/etc/letsencrypt/live/www.aniltaskiran.com/fullchain.pem",
+                "verifyMode": "peer",
+                "keyPath": "/etc/letsencrypt/keys/0000_key-certbot.pem"
             ]
         ],
     ]
