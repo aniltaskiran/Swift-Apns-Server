@@ -21,10 +21,9 @@ public class Device {
         if isSilent {
             print("silent gönderildi.")
             notItems.removeAll()
-            notItems = [.contentAvailable]
+            notItems = [.contentAvailable, .mutableContent, .category("videoIdentifier"), .customPayload("data", data)]
         }
         let n = NotificationPusher(apnsTopic: notificationsAppId)
-        print("gönderilen notification: \(notItems)")
         n.pushAPNS(
             configurationName: notificationsAppId,
             deviceTokens: deviceTokens,
